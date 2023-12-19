@@ -7,6 +7,7 @@ import ClockDisplay from './components/ClockDisplay'
 import ActivityFinder from './components/ActivityFinder'
 import RefCounter from './components/RefCounter'
 import VideoPlayer from './components/VideoPlayer'
+import ReducerCounter from './components/ReducerCounter'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -17,7 +18,8 @@ function App() {
       {/* <ClockDisplay /> */}
       {/* <ActivityFinder /> */}
       {/* <RefCounter /> */}
-      <VideoPlayer />
+      {/* <VideoPlayer /> */}
+      <ReducerCounter />
     </>
   )
 }
