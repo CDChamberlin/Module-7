@@ -6,6 +6,7 @@ function ClockDisplay(){
 
     const toggleClock = () => {
         setShowClock(!showClock)
+        //setTickCount(0)
     }
     return(
         <div>
