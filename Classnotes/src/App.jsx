@@ -5,6 +5,8 @@ import './App.css'
 import Clock from './components/Clock'
 import ClockDisplay from './components/ClockDisplay'
 import ActivityFinder from './components/ActivityFinder'
+import RefCounter from './components/RefCounter'
+import VideoPlayer from './components/VideoPlayer'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -12,8 +14,10 @@ function App() {
   return (
     <>
       {/* <Clock /> */}
-      <ClockDisplay />
-      <ActivityFinder />
+      {/* <ClockDisplay /> */}
+      {/* <ActivityFinder /> */}
+      {/* <RefCounter /> */}
+      <VideoPlayer />
     </>
   )
 }
