@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { useData } from "../hooks/useData";
 function ActivityFinder() {
   // Fetches a random activity
   const [participants, setParticipants] = useState(1);
-  const [activity, setActivity] = useState("");
+  const data = useData(`https://www.boredapi.com/api/activity?participants=${participants}`);
+ {/* const [activity, setActivity] = useState("");
   useEffect(() => {
     console.log('Running Effect')
     let ignore = false
@@ -19,6 +21,8 @@ function ActivityFinder() {
         console.log('Cleanup effect')
       }
   }, [participants]);
+*/}
+  const activity = data ? data.activity : 'not Found'
   return (
     <div className="ActivityFinder componentBox">
       <h3>Activity Finder</h3>
