@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useUserContext } from "../context/UserContext";
+import { MyThemeContext } from "../context/ThemeContext";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
   const [userEmail, setUserEmail] = useState("");
@@ -7,7 +9,10 @@ export default function LoginForm() {
   const [submitResult, setSubmitResult] = useState("");
 
   const { currentUser, handleUpdateUser } = useUserContext();
-
+  const {theme, darkMode} = useContext(MyThemeContext)
+  
+  const navigate = useNavigate();
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     if (userPassword.length < 5) {
@@ -17,18 +22,19 @@ export default function LoginForm() {
     } else {
       setSubmitResult("Successful login");
       handleUpdateUser({ email: userEmail });
+      navigate('/dash')
     }
   };
 
   if (currentUser.email)
     return (
-      <>
+      <div className="LoginForm componentBox"  >
         <p>Welcome {currentUser.email}!</p>
         <button onClick={() => handleUpdateUser({})}>Log Out</button>
-      </>
+      </div>
     );
   return (
-    <div>
+    <div style={{background:theme.background, color:theme.foreground}}>
       <form onSubmit={handleSubmit}>
         <div className="formRow">
           <label>
