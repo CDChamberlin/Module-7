@@ -1,31 +1,45 @@
+import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Homepage from "../pages/HomePage";
-import DashboardPage from "../pages/DashboardPage";
-import { DashboardMessages, DashboardTasks } from "../pages/DashboardPage";
-import AboutPage from "../pages/AboutPage";
-import PageNotFound from "../pages/PageNotFound";
+import AboutPage from "../Pages/AboutPage";
+import DashboardPage, {
+  DashboardMessages,
+  DashboardTasks,
+} from "../Pages/DashboardPage";
+import PageNotFound from "../Pages/PageNotFound";
+import Homepage from "../Pages/Homepage";
 import LoginForm from "../components/LoginForm";
+import PostsPage, { Post, PostList} from "../Pages/PostsPage";
 
+//special component containing all the possible routes for the app
+// any props passed into AppRoutes will also pass onto child components using {...props}
 
 function AppRoutes(props) {
   return (
     <Routes>
-        <Route index element={<Homepage {...props} />} />
-        <Route path="login" element={<LoginForm {...props} />} />
-      {/* nested routes, will match on /dash/tasks */}
-      {/* /dash */}
-      <Route path="dash" element={<DashboardPage {...props} />} >
+      <Route path="login" element={<LoginForm {...props} />} />
+      {/* index matches on default/home URL: / */}
+      <Route index element={<Homepage {...props} />} />
+
+      {/* nested routes, matches on /dash/tasks etc */}
+      <Route path="dash" element={<DashboardPage {...props} />}>
+        <Route path="messages" element={<DashboardMessages />} />
         {/* /dash/messages */}
-        <Route path="messages" element={<DashboardMessages {...props} />} />
+        <Route path="tasks" element={<DashboardTasks />} />
         {/* /dash/tasks */}
-        <Route path="tasks" element={<DashboardTasks {...props} />} />
       </Route>
 
-      <Route path='/about' element={<AboutPage {...props} />} />
+      <Route path="about" element={<AboutPage {...props} />} />
 
+      {/* special route to handle if none of the above match */}
       <Route path="*" element={<PageNotFound />} />
+      <Route path='posts' element={<PostsPage {...props} />}>
+        <Route index element={<PostList/>}/>
+
+        {/* dynamic id variable */}
+        <Route path=":id" element={<Post/>}/>
+      </Route>
     </Routes>
-  )
+  );
 }
 
 export default AppRoutes;

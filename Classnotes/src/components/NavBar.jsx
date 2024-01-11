@@ -1,15 +1,22 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
+import { MyThemeContext } from "../context/ThemeContext";
 import { NavLink } from "react-router-dom";
-import { MyThemeContext } from "../context/MyThemeContext";
+import { useUserContext } from "../context/UserContext";
 
 export default function NavBar() {
   const { theme } = useContext(MyThemeContext);
+  const { currentUser } = useUserContext();
+
+  console.log(currentUser);
 
   return (
-    <nav
+    <div
       className="NavBar"
       style={{ backgroundColor: theme.background, color: theme.foreground }}
     >
+      {/* <span className="navLeft">
+        <img src={reactLogo} className="logo" alt="Vite logo" />
+      </span> */}
       <ul className="menu">
         <li>
           <NavLink to="/">Home</NavLink>
@@ -20,9 +27,17 @@ export default function NavBar() {
         <li>
           <NavLink to="/about">About</NavLink>
         </li>
-        <li><NavBar to="/login">Login</NavBar> </li>
-      </ul>{" "}
-      {/* ++ Add another page with route and component */}
-    </nav>
+        <li>
+          <NavLink to="/login">LoginForm</NavLink>
+        </li>
+        <li>
+          <NavLink to="posts">Posts</NavLink>
+        </li>
+      </ul>
+      {/* <span className="navRight">
+        <img src="https://placehold.co/60" />
+        {currentUser?.email || "Guest"}
+      </span> */}
+    </div>
   );
 }
