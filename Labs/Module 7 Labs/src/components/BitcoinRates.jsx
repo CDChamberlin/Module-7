@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
+import useCoinPrice from "../hooks/useCoinPrice";
+
 const currencies = ['USD', 'AUD', 'NZD', 'GBP', 'EUR', 'SGD'];
 export default function BitcoinRates() {
     const [currency, setCurrency] = useState(currencies[0]);
-    const [price, setPrice] = useState('')
+    const {loading, error, price} = useCoinPrice(currency)
     const options = currencies.map(curr => <option value={curr} key={curr}>{curr}</option>);
 
-    useEffect(() => {
+
+    /* useEffect(() => {
         let ignore = false;
         axios
             .get(
@@ -19,7 +21,8 @@ export default function BitcoinRates() {
             ignore = true;
         }
     }, [currency]);
-
+    */
+   
   
   return (
     <div className="BitcoinRates componentBox">
@@ -31,7 +34,9 @@ export default function BitcoinRates() {
           {options}
         </select>
       </label>
-      <h4 id = "rate">{price}</h4>
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
+      {!loading && !error && <h4 id="rate">{currency}: {price}</h4>}
     </div>
   );
 }
