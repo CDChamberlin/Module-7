@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useCoinPrice from "../hooks/useCoinPrice";
+import Emoji from "./Emoji";
 
 const currencies = ['USD', 'AUD', 'NZD', 'GBP', 'EUR', 'SGD'];
 export default function BitcoinRates() {
@@ -37,6 +38,7 @@ export default function BitcoinRates() {
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       {!loading && !error && <h4 id="rate">{currency}: {price}</h4>}
+      <Emoji symbol = "😎" label ="smiling with sunglasses"/>
     </div>
   );
 }
