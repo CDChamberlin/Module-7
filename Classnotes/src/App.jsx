@@ -22,8 +22,8 @@ function App() {
   return (
     <>
       <UserProvider>
-        <MyThemeProvider>
-          {/* <Clock /> */}
+        {/* <MyThemeProvider> */}
+          <Clock />
           {/* <ClockDisplay /> */}
           {/* <ActivityFinder /> */}
           {/* <LoginForm /> */}
@@ -33,8 +33,9 @@ function App() {
           {/* <PostListReducer /> */}
           {/* <SubscribeForm /> */}
           <NavBar />
-          <AppRoutes />
-        </MyThemeProvider>
+
+        {/* </MyThemeProvider> */}
+        <AppRoutes />
       </UserProvider>
     </>
   );
