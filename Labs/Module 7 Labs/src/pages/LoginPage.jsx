@@ -1,7 +1,8 @@
-import LoginForm from "../components/LoginForm";
+//import LoginForm from "../components/LoginForm";
+import LoginFormMUI from "../components/LoginFormMUI";
 
 export default function LoginPage() {
     return(
-        <LoginForm />
+        <LoginFormMUI/>
     )
 }
