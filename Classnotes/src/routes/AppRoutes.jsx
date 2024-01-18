@@ -8,36 +8,54 @@ import DashboardPage, {
 import PageNotFound from "../Pages/PageNotFound";
 import Homepage from "../Pages/Homepage";
 import LoginForm from "../components/LoginForm";
-import PostsPage, { Post, PostList} from "../Pages/PostsPage";
+import PostsPage, { Post, PostList} from "../pages/PostsPage";
+import ProtectedRoute from "./ProtectedRoutes";
 
-//special component containing all the possible routes for the app
-// any props passed into AppRoutes will also pass onto child components using {...props}
 
 function AppRoutes(props) {
   return (
     <Routes>
-      <Route path="login" element={<LoginForm {...props} />} />
-      {/* index matches on default/home URL: / */}
       <Route index element={<Homepage {...props} />} />
-
-      {/* nested routes, matches on /dash/tasks etc */}
-      <Route path="dash" element={<DashboardPage {...props} />}>
-        <Route path="messages" element={<DashboardMessages />} />
+      <Route path="login" element={<LoginForm {...props} />} />
+      {/* nested routes, will match on /dash/tasks */}
+      {/* /dash */}
+      <Route
+        path="dash"
+        element={
+          <ProtectedRoute>
+            <DashboardPage {...props} />
+          </ProtectedRoute>
+        }
+      >
         {/* /dash/messages */}
-        <Route path="tasks" element={<DashboardTasks />} />
+        <Route path="messages" element={<DashboardMessages {...props} />} />
         {/* /dash/tasks */}
+        <Route path="tasks" element={<DashboardTasks {...props} />} />
       </Route>
 
-      <Route path="about" element={<AboutPage {...props} />} />
+      <Route
+        path="/about"
+        element={
+          <ProtectedRoute redirectpath="/">
+            <AboutPage {...props} />
+          </ProtectedRoute>
+        }
+      />
 
-      {/* special route to handle if none of the above match */}
+      <Route
+        path="/posts"
+        element={
+          <ProtectedRoute>
+            <PostsPage {...props} />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<PostList />} />
+        {/* dynamic param taken from route, stored in variable called id */}
+        <Route path=":id" element={<Post />} />
+      </Route>
+
       <Route path="*" element={<PageNotFound />} />
-      <Route path='posts' element={<PostsPage {...props} />}>
-        <Route index element={<PostList/>}/>
-
-        {/* dynamic id variable */}
-        <Route path=":id" element={<Post/>}/>
-      </Route>
     </Routes>
   );
 }
